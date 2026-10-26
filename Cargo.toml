@@ -1,0 +1,43 @@
+[package]
+name = "ice-rs"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.82"
+license = "MIT OR Apache-2.0"
+description = "Pure-Rust full-ICE agent (RFC 8445) with trickle ICE (RFC 8838) and consent freshness (RFC 7675), layered on the sibling stun-rs / turn-rs / networkframework crates"
+authors = ["Per Johansson <per@doom.fish>"]
+homepage = "https://github.com/doom-fish/ice-rs"
+repository = "https://github.com/doom-fish/ice-rs"
+keywords = ["ice", "stun", "turn", "webrtc", "nat"]
+categories = ["network-programming", "os::macos-apis"]
+readme = "README.md"
+build = "build.rs"
+publish = false
+
+[lib]
+name = "ice"
+path = "src/lib.rs"
+crate-type = ["lib"]
+
+[dependencies]
+libc = "0.2"
+stun = { path = "../stun-rs", package = "stun-rs", version = ">=0.2, <0.3" }
+turn = { path = "../turn-rs", package = "turn-rs", version = ">=0.2, <0.3" }
+networkframework = { path = "../networkframework-rs", version = ">=0.14, <0.15" }
+zeroize = ">=1.6, <1.9"
+
+[[example]]
+name = "01_gather_local_candidates"
+path = "examples/01_gather_local_candidates.rs"
+
+[[example]]
+name = "02_full_gather"
+path = "examples/02_full_gather.rs"
+
+[[example]]
+name = "03_loopback_pair"
+path = "examples/03_loopback_pair.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
